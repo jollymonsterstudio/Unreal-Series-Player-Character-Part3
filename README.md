@@ -3,18 +3,17 @@
 
 Hey guys,
 
-This is the starter project for the third part of our Player Character series taking about collisions.
+This is the starter project for the third part of our Player Character series taking about collision events.
 
 The topics we are going to cover in this tutorial are:
-* creating dynamic delegates
-* attaching delegates to OnComponentHit
-* attaching delegates to OnComponentBeginOverlap
-* attaching delegates to OnComponentEndOverlap
-* discuss FHitResult
+* Delegates – 04:00 – delegates allow us to defer logic from specific events to our internal methods based on aligning our method signature with what the delegate expects.
+* OnComponentHit – 05:00 – OnComponentHit provides is with information when a block event occurs between two entities in the world.
+* FHitResult – 15:00 – the FHitResult struct contains a lot of important information not only about the entity we are colliding with but also all the details about the collision, point of impact, various transform vectors, time, distance, etc etc
+* OnComponentBeginOverlap / OnComponentEndOverlap – 18:00 – these are notifications that will fire during the course of our animation playback and trigger specific events on our player character. In our case we are simply going to enable the collisions on our collision boxes.
 
-You can find more details here: TBD
+You can find more details here: http://jollymonsterstudio.com/2018/11/30/unreal-c-tutorial-player-character-series-punch-part-3-collision-events/
 
-You can find the associated video tutorial here: TBD
+You can find the associated video tutorial here: https://youtu.be/K9yp5bpEXXQ
 
 The master branch of this project is the starter while part3-end is the fininished lesson.
 
