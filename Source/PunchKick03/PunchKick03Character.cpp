@@ -58,12 +58,14 @@ APunchKick03Character::APunchKick03Character()
 	LeftFistCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("LeftFistCollisionBox"));
 	LeftFistCollisionBox->SetupAttachment(RootComponent);
 	LeftFistCollisionBox->SetCollisionProfileName("NoCollision");
+	LeftFistCollisionBox->SetNotifyRigidBodyCollision(false);
 
 	LeftFistCollisionBox->SetHiddenInGame(false);
 
 	RightFistCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("RightFistCollisionBox"));
 	RightFistCollisionBox->SetupAttachment(RootComponent);
 	RightFistCollisionBox->SetCollisionProfileName("NoCollision");
+	RightFistCollisionBox->SetNotifyRigidBodyCollision(false);
 
 	RightFistCollisionBox->SetHiddenInGame(false);
 }
@@ -77,6 +79,9 @@ void APunchKick03Character::BeginPlay()
 
 	LeftFistCollisionBox->AttachToComponent(GetMesh(), AttachmentRules, "fist_l_collision");
 	RightFistCollisionBox->AttachToComponent(GetMesh(), AttachmentRules, "fist_r_collision");
+
+	LeftFistCollisionBox->OnComponentHit.AddDynamic(this, &APunchKick03Character::OnAttackHit);
+	RightFistCollisionBox->OnComponentHit.AddDynamic(this, &APunchKick03Character::OnAttackHit);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -186,7 +191,10 @@ void APunchKick03Character::AttackStart()
 	Log(ELogLevel::INFO, __FUNCTION__);
 
 	LeftFistCollisionBox->SetCollisionProfileName("Weapon");
+	LeftFistCollisionBox->SetNotifyRigidBodyCollision(true);
+
 	RightFistCollisionBox->SetCollisionProfileName("Weapon");
+	RightFistCollisionBox->SetNotifyRigidBodyCollision(true);
 }
 
 void APunchKick03Character::AttackEnd()
@@ -194,10 +202,17 @@ void APunchKick03Character::AttackEnd()
 	Log(ELogLevel::INFO, __FUNCTION__);
 
 	LeftFistCollisionBox->SetCollisionProfileName("NoCollision");
+	LeftFistCollisionBox->SetNotifyRigidBodyCollision(false);
+
 	RightFistCollisionBox->SetCollisionProfileName("NoCollision");
+	RightFistCollisionBox->SetNotifyRigidBodyCollision(false);
 }
 
-
+void APunchKick03Character::OnAttackHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	Log(ELogLevel::WARNING, __FUNCTION__);
+	Log(ELogLevel::WARNING, Hit.GetActor()->GetName());
+}
 
 void APunchKick03Character::Log(ELogLevel LogLevel, FString Message)
 {

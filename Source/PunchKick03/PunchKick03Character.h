@@ -74,6 +74,12 @@ public:
 	*/
 	void AttackEnd();
 
+	/**
+	* Triggered when the collision hit event fires between our weapon and enemy entities
+	*/
+	UFUNCTION()
+	void OnAttackHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Camera)
 	float BaseTurnRate;
